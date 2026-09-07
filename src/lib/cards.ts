@@ -196,6 +196,7 @@ export const CARDS: Card[] = [
     earn: {
       base: null,
       percentFromSettings: "sliceCashbackRate", // 1% flat, 2% after 3 lakh cumulative Monies; set in settings
+      zeroOnInternational: true, // owner confirmed: slice earns no Monies on international transactions
       zeroCategories: [], // owner confirmed: no category exclusions
       forfeitOnEmi: false,
     },
@@ -368,35 +369,6 @@ export const CARDS: Card[] = [
         frequency: "once per month",
       },
     ],
-  },
-
-  // ---------------------------------------------------------------------
-  {
-    id: "qnb",
-    name: "QNB debit",
-    short: "QNB debit",
-    issuer: "QNB",
-    network: "Mastercard",
-    kind: "debit",
-    color: "#1a3fb5", // QNB debit artwork: blue; fallback behind qnb.png
-    homeCurrency: "QAR",
-    supportsUpi: false,
-    unit: null, // no rewards
-    earn: {
-      base: null,
-      zeroCategories: [],
-      forfeitOnEmi: false,
-    },
-    forex: {
-      byCurrency: {
-        QAR: 0, // QNB: QAR transactions carry no fee
-        USD: 2, // QNB: 2% on USD
-        INR: 3, // QNB: 3% on everything that is not GCC or USD
-      },
-      defaultPct: 3, // QNB: 3% on other currencies (1.25% for GCC currencies, none of which are in the enum)
-      gstOnMarkupPct: 0,
-    },
-    offers: [],
   },
 ];
 

@@ -102,6 +102,10 @@ function scoreCard(card: Card, input: TransactionInput, amountInr: number, opts:
       base._emiForfeit = true;
       warnings.push(`EMI forfeits rewards on ${card.short}`);
       earn = { units: 0, unitName: card.unit.plural, valueInr: 0, rateLabel: "0 on EMI" };
+    } else if (card.earn.zeroOnInternational && (input.currency !== "INR" || input.country !== "IN")) {
+      base._zeroCategory = true;
+      warnings.push(`International transactions earn 0 on ${card.short}`);
+      earn = { units: 0, unitName: card.unit.plural, valueInr: 0, rateLabel: "0 on international" };
     } else if (zeroMerchant) {
       base._zeroCategory = true;
       warnings.push(`${zeroMerchant} purchases earn 0 on ${card.short}`);

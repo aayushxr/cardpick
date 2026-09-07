@@ -13,7 +13,7 @@ The `Card` type is in `src/lib/types.ts`. The fields, in the order you meet them
 | `id` | Stable key. Used in tests and in the API response. |
 | `name`, `short` | Full name for the list, short name for the top pick and the Siri line. |
 | `issuer`, `network`, `kind` | Display only. |
-| `homeCurrency` | Spends in this currency never carry a forex markup. QNB is `QAR`, everything else is `INR`. |
+| `homeCurrency` | Spends in this currency never carry a forex markup. `INR` for every card. |
 | `supportsUpi` | If false the card is dropped whenever the rail is UPI. |
 | `unit` | Name of the reward unit and which settings key holds its rupee value. `null` means the card never earns. |
 | `earn.base` | Points per slab of rupees. `{ points: 2, per: 100 }` is 2 per ₹100. Slabs round down per transaction. |
@@ -21,11 +21,12 @@ The `Card` type is in `src/lib/types.ts`. The fields, in the order you meet them
 | `earn.percentFromSettings` | For cashback cards. Points to the settings key holding the percent. slice uses this. |
 | `earn.upi` | UPI-only tiers with a rupee threshold. WOW Black earns 3 per ₹150 above ₹2,000 and 1 per ₹150 at or below. |
 | `earn.byMerchant` | Merchant keyword overrides for things the MCC groups cannot express, like IRCTC and FASTag on WOW. |
+| `earn.zeroOnInternational` | International transactions (non-INR currency or merchant outside IN) earn nothing. slice uses this. Dropped like a zero category when another card earns. |
 | `earn.zeroCategories` | Categories that earn nothing. The card is dropped if it is here, has no offer, and another card earns. |
 | `earn.zeroMerchantKeywords` | Merchant keywords that earn nothing, like gift cards on Neo. |
 | `earn.forfeitOnEmi` | When true and the input has `isEmi`, earn is 0, a warning is shown, and the card sorts last among the eligible. |
 | `forex.defaultPct` | Markup percent on any currency not in `byCurrency`. |
-| `forex.byCurrency` | Per-currency markup. QNB is 0 on QAR, 2 on USD, 3 on INR. |
+| `forex.byCurrency` | Per-currency markup, overriding `defaultPct` for the listed currencies. |
 | `forex.gstOnMarkupPct` | GST charged on the markup itself. Axis charges 18, so 3.5% becomes 4.13%. |
 | `onlyCurrencies` | Hard rule. Neo is `["INR"]` and is dropped everywhere else. |
 | `offers` | Merchant offers, see below. |
