@@ -25,7 +25,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={submit} className="mt-10 flex flex-col gap-3">
-      <h1 className="text-2xl font-semibold tracking-tight">Shared secret</h1>
+      <h1 className="display text-3xl">Shared secret</h1>
       <p className="text-sm text-muted">Set once. Stored in a cookie on this device.</p>
       <input
         type="password"

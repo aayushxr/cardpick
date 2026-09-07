@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ParsedTransaction, TransactionInput } from "@/lib/types";
 import type { RecommendResponse } from "@/lib/recommend-server";
+import type { ArtworkMap } from "@/lib/artwork";
 import { Chips } from "./Chips";
 import { FollowUp, type FieldKey } from "./FollowUp";
 import { Result } from "./Result";
@@ -12,7 +13,7 @@ type Phase = "idle" | "parsing" | "asking" | "recommending" | "done";
 
 const EXAMPLES = ["Zomato order ₹600 on UPI", "Claude subscription $200, expensed", "Uber in Doha, 17 riyals", "Chennai to Doha on airindia.com, ₹35,000"];
 
-export function Ask({ defaultExpensed }: { defaultExpensed: boolean }) {
+export function Ask({ defaultExpensed, artwork }: { defaultExpensed: boolean; artwork: ArtworkMap }) {
   const [text, setText] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [parsed, setParsed] = useState<ParsedTransaction | null>(null);
@@ -171,7 +172,7 @@ export function Ask({ defaultExpensed }: { defaultExpensed: boolean }) {
 
       {result && input && (
         <>
-          <Result result={result} />
+          <Result result={result} artwork={artwork} />
           <History merchant={input.merchantName} category={input.category} />
         </>
       )}

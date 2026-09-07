@@ -95,6 +95,10 @@ export type Card = {
   issuer: string;
   network: string;
   kind: "credit" | "debit";
+  /** Dominant colour of the physical card, hex. Display only: used behind the artwork and as the fallback when it is missing. */
+  color: string;
+  /** Path to the card's front-face artwork under public/. Defaults to /cards/<id>.(png|jpg|webp|avif), first found. */
+  image?: string;
   /** Currency this card settles in. Spends in this currency carry no forex markup. */
   homeCurrency: Currency;
   supportsUpi: boolean;
@@ -167,6 +171,8 @@ export type CardResult = {
   cardId: string;
   name: string;
   short: string;
+  color: string;
+  image: string;
   rank: number;
   /** false = failed a hard filter. Still listed with dropReason so the UI can explain. */
   eligible: boolean;
