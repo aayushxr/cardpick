@@ -11,7 +11,13 @@ export const metadata: Metadata = {
   description: "Tell it what you're about to buy, it tells you which card to use.",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "cardpick" },
-  icons: { icon: "/icon-192.png", apple: "/apple-touch-icon.png" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
