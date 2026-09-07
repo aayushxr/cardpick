@@ -115,6 +115,8 @@ export type Card = {
     upi?: { threshold: number; above: SlabEarn; atOrBelow: SlabEarn };
     /** Merchant keyword overrides, for merchants the MCC groups cannot express (IRCTC, FASTag). */
     byMerchant?: { match: string[]; label: string; earn: SlabEarn }[];
+    /** True when international transactions (non-INR currency or merchant outside IN) earn nothing. */
+    zeroOnInternational?: boolean;
     /** Categories that earn nothing. */
     zeroCategories: Category[];
     /** Merchant keywords that earn nothing (gift cards on Neo). */

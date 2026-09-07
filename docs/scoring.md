@@ -10,9 +10,10 @@ If the currency is not INR the amount is converted using the settings override f
 
 A card is dropped, with the reason shown, when:
 
-- the rail is UPI and the card has no UPI (Horizon, Wealth debit, QNB);
+- the rail is UPI and the card has no UPI (Horizon, Wealth debit);
 - the card is restricted to certain currencies and this is not one of them (Neo outside INR);
-- the category is in the card's zero-earn list, the card has no applicable offer, and at least one other card earns something.
+- the category is in the card's zero-earn list, the card has no applicable offer, and at least one other card earns something;
+- the card earns nothing on international transactions (slice), the transaction is international, it has no applicable offer, and at least one other card earns something.
 
 The last one is applied after every card is scored, because it depends on the others.
 

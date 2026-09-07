@@ -66,8 +66,8 @@ describe("Uber ₹413 in India", () => {
 });
 
 describe("Uber QAR 17 in Doha", () => {
-  // Owner's call (Sep 2026): rank purely by net. slice and WOW both have zero
-  // markup and earn something, so they outrank QNB, which earns nothing.
+  // Owner's call (Sep 2026): rank purely by net. WOW has zero markup and earns;
+  // slice earns nothing on international transactions.
   const r = run(tx({ amount: 17, currency: "QAR", country: "QA", category: "ride_hailing", merchantName: "Uber", rail: "card_pos" }));
   it("Horizon is last with the forex warning (dropped: ride-hailing earns 0 while others earn)", () => {
     const shown = r.ranked.filter((x) => x.eligible || x.cardId === "horizon");
@@ -77,19 +77,19 @@ describe("Uber QAR 17 in Doha", () => {
     expect(h.warnings.some((w) => w.startsWith("Forex markup"))).toBe(true);
     expect(h.warnings.some((w) => w.includes("₹0 on"))).toBe(true);
   });
-  it("QNB has no fee and no reward, so net 0", () => {
-    const q = byId(r, "qnb");
-    expect(q.fee.inr).toBe(0);
-    expect(q.net).toBe(0);
-  });
   it("Neo is dropped outside INR", () => {
     expect(byId(r, "neo").eligible).toBe(false);
   });
-  it("WOW Black earns 8 RP at zero forex and outranks QNB", () => {
+  it("WOW Black earns 8 RP at zero forex and wins", () => {
     const w = byId(r, "wow");
     expect(w.earn?.units).toBe(8);
     expect(w.fee.inr).toBe(0);
-    expect(w.rank).toBeLessThan(byId(r, "qnb").rank);
+    expect(r.top?.cardId).toBe("wow");
+  });
+  it("slice earns nothing internationally and is dropped because others earn", () => {
+    const s = byId(r, "slice");
+    expect(s.eligible).toBe(false);
+    expect(s.dropReason).toBe("International transactions earn 0 on slice");
   });
 });
 
@@ -118,9 +118,10 @@ describe("Claude subscription USD 200", () => {
     const above = { ...DEFAULT_SETTINGS, unitValue: { ...DEFAULT_SETTINGS.unitValue, horizonMile: threshold + 0.05 } };
     expect(run(base, below).top?.cardId).not.toBe("horizon");
     expect(run(base, above).top?.cardId).toBe("horizon");
-    // With GST on the markup the break-even sits near ₹2.57, not the ₹2.07
-    // you get by ignoring GST and slice.
-    expect(threshold).toBeGreaterThan(2.4);
+    // With GST on the markup the break-even sits near ₹2.40 (against WOW's
+    // ₹126, since slice earns nothing internationally), not the ₹2.07 you get
+    // by ignoring GST.
+    expect(threshold).toBeGreaterThan(2.3);
   });
 });
 
@@ -234,6 +235,6 @@ describe("currency OTHER", () => {
   it("uses the INR override when given", () => {
     const r = recommend(tx({ amount: 50, currency: "OTHER", country: "OTHER", category: "dining" }), { settings: DEFAULT_SETTINGS, rates: RATES, now: MONDAY, amountInrOverride: 4000 });
     expect(r.amountInr).toBe(4000);
-    expect(byId(r, "qnb").fee.markupPct).toBe(3);
+    expect(byId(r, "wealth").fee.markupPct).toBe(2);
   });
 });
