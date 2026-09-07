@@ -1,7 +1,7 @@
 // Minimal service worker: makes the app installable and serves the shell
 // offline. API calls always go to the network; nothing about cards is cached.
-const CACHE = "cardpick-v1";
-const SHELL = ["/", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png"];
+const CACHE = "cardpick-v2";
+const SHELL = ["/", "/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
