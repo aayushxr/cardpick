@@ -61,6 +61,8 @@ function scoreCard(card: Card, input: TransactionInput, amountInr: number, opts:
     cardId: card.id,
     name: card.name,
     short: card.short,
+    color: card.color,
+    image: card.image ?? `/cards/${card.id}.png`,
     rank: 0,
     eligible: true,
     earn: null,

@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
+/*
+  Palette: oxblood, the Qatar Airways end of burgundy. Near-black behind
+  everything, the brand burgundy as hairlines, ivory type, a little
+  champagne where a card would carry foil.
+*/
 @theme inline {
-  --color-bg: #0b0b0c;
-  --color-panel: #151517;
-  --color-panel-2: #1d1d21;
-  --color-line: #2a2a30;
-  --color-fg: #f2efe6;
-  --color-muted: #9a978f;
-  --color-accent: #e8d9a0;
-  --color-good: #8fd694;
-  --color-bad: #f08a7e;
-  --color-warn: #f0c674;
+  --color-bg: #1c050d; /* oxblood, near black */
+  --color-panel: #2e0817; /* inputs, chips, plain panels */
+  --color-panel-2: #3d0b1f; /* option pills */
+  --color-line: #5c0632; /* Qatar Airways burgundy, as hairlines */
+  --color-fg: #f4ece6; /* ivory */
+  --color-muted: #b99aa5; /* rose grey */
+  --color-accent: #d8bd8c; /* champagne foil */
+  --color-good: #a6dba9;
+  --color-bad: #ffa48f;
+  --color-warn: #f1c77a;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
@@ -18,6 +23,7 @@
 html {
   color-scheme: dark;
   -webkit-text-size-adjust: 100%;
+  background: var(--color-bg);
 }
 
 body {
@@ -35,9 +41,41 @@ button {
   font: inherit;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .num {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+}
+
+.display {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+/* Raised lettering, like the numbers pressed into a card. */
+.emboss {
+  text-shadow:
+    0 1px 0 rgba(255, 244, 232, 0.22),
+    0 -1px 0 rgba(20, 0, 8, 0.55);
+}
+
+/* The top pick is drawn as a physical card. */
+/* Background is set inline from the card's own colour, see Result.tsx. */
+.card-face {
+  border: 1px solid rgba(216, 189, 140, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 232, 0.12),
+    0 20px 40px -24px rgba(0, 0, 0, 0.7);
+}
+
+.card-chip {
+  background: linear-gradient(135deg, #e9d6ae, #b99a5c 55%, #d8bd8c);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(90, 60, 10, 0.35);
 }
 
 details > summary {
@@ -45,4 +83,20 @@ details > summary {
 }
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-face {
+    animation: card-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) rotate(-0.6deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }

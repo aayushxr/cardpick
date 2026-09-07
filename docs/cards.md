@@ -30,6 +30,8 @@ The `Card` type is in `src/lib/types.ts`. The fields, in the order you meet them
 | `onlyCurrencies` | Hard rule. Neo is `["INR"]` and is dropped everywhere else. |
 | `offers` | Merchant offers, see below. |
 | `reminder` | Static text on the card row. Never scored. WOW shows its ₹40,000 limit here. |
+| `color` | Hex colour of the physical card. Fallback background when there is no artwork. |
+| `image` | Path to the front-face artwork under `public/`. Defaults to `/cards/<id>.png`, then jpg, webp, avif, first found. See `public/cards/README.md`. |
 
 ## Offers
 

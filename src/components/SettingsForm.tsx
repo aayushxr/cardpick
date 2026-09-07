@@ -58,7 +58,7 @@ export function SettingsForm({ initial, fx: initialFx, persistent }: { initial: 
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+      <h1 className="display text-3xl">Settings</h1>
       {!persistent && (
         <p className="rounded-xl border border-warn/40 bg-warn/10 px-4 py-2 text-xs text-warn">No Redis configured. Settings reset on every restart.</p>
       )}
@@ -113,7 +113,7 @@ export function SettingsForm({ initial, fx: initialFx, persistent }: { initial: 
             <span className="block text-sm">Default expensed</span>
             <span className="block text-xs text-muted">Fees zeroed for ranking when the parser cannot tell.</span>
           </span>
-          <input type="checkbox" checked={s.defaultExpensed} onChange={(e) => setS({ ...s, defaultExpensed: e.target.checked })} className="h-5 w-5 accent-[#e8d9a0]" />
+          <input type="checkbox" checked={s.defaultExpensed} onChange={(e) => setS({ ...s, defaultExpensed: e.target.checked })} className="h-5 w-5 accent-[#e8c98a]" />
         </label>
       </section>
 

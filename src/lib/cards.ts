@@ -11,6 +11,8 @@
 //   - Offers are surfaced with their cap and frequency. Usage is not tracked.
 //   - Issuer quirks (GST on markup, UPI support, INR-only) are card properties.
 //     The engine has no branches keyed on a card id.
+//   - Artwork: put the card's front face at public/cards/<id>.png (or jpg,
+//     webp, avif). `color` is the fallback when the file is missing.
 
 import type { Card } from "./types";
 
@@ -23,6 +25,7 @@ export const CARDS: Card[] = [
     issuer: "Axis Bank",
     network: "Visa",
     kind: "credit",
+    color: "#3a0b2a", // Axis Horizon artwork: near-black with a magenta horizon; fallback behind the artwork
     homeCurrency: "INR",
     supportsUpi: false, // Visa credit, no RuPay variant
     unit: { name: "EDGE Mile", plural: "EDGE Miles", settingsKey: "horizonMile" },
@@ -61,6 +64,7 @@ export const CARDS: Card[] = [
     issuer: "Axis Bank",
     network: "RuPay",
     kind: "credit",
+    color: "#b3004f", // Axis Neo artwork: magenta; fallback behind the artwork
     homeCurrency: "INR",
     supportsUpi: true, // RuPay credit on UPI
     unit: { name: "EDGE point", plural: "EDGE points", settingsKey: "neoPoint" },
@@ -185,6 +189,7 @@ export const CARDS: Card[] = [
     issuer: "slice",
     network: "RuPay",
     kind: "credit",
+    color: "#e8237f", // slice card colour, from the owner
     homeCurrency: "INR",
     supportsUpi: true, // works on any UPI app and as a card
     unit: { name: "Monie", plural: "Monies", settingsKey: "sliceMonie" },
@@ -209,6 +214,7 @@ export const CARDS: Card[] = [
     issuer: "IDFC FIRST Bank",
     network: "Mastercard",
     kind: "credit",
+    color: "#161616", // IDFC WOW! Black: black; approximate, display only
     homeCurrency: "INR",
     supportsUpi: true, // RuPay virtual card linked for UPI
     unit: { name: "RP", plural: "RP", settingsKey: "wowRp" },
@@ -249,6 +255,7 @@ export const CARDS: Card[] = [
     issuer: "IDFC FIRST Bank",
     network: "Visa Infinite",
     kind: "debit",
+    color: "#12395a", // IDFC Wealth debit artwork: deep blue; approximate, display only
     homeCurrency: "INR",
     supportsUpi: false, // a debit card on UPI is just the bank account; no card benefit applies
     unit: null, // no base rewards
@@ -369,8 +376,9 @@ export const CARDS: Card[] = [
     name: "QNB debit",
     short: "QNB debit",
     issuer: "QNB",
-    network: "Visa",
+    network: "Mastercard",
     kind: "debit",
+    color: "#1a3fb5", // QNB debit artwork: blue; fallback behind qnb.png
     homeCurrency: "QAR",
     supportsUpi: false,
     unit: null, // no rewards

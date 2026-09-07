@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAuthedPage } from "@/lib/auth";
 import { getSettings } from "@/lib/settings";
+import { artworkMap } from "@/lib/artwork";
 import { Ask } from "@/components/Ask";
 import { Shell } from "@/components/Shell";
 
@@ -18,7 +19,7 @@ export default async function Home() {
         </Link>
       }
     >
-      <Ask defaultExpensed={settings.defaultExpensed} />
+      <Ask defaultExpensed={settings.defaultExpensed} artwork={artworkMap()} />
     </Shell>
   );
 }
